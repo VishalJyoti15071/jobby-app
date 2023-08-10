@@ -1,0 +1,12 @@
+.home-main-container {
+  height: 100vh;
+  width: 100vw;
+}
+.home-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 50px;
+  padding-right: 50px;
+}
