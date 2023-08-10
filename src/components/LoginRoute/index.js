@@ -1,15 +1,49 @@
 import {Component} from 'react'
+import Cookies from 'js-cookie'
 import './index.css'
 
 class LoginRoute extends Component {
-  state = {username: '', password: ''}
+  state = {username: '', password: '', isShowError: false, error: ''}
 
-  onClickSubmit = event => {
+  onSuccessLogin = jwtToken => {
+    const {history} = this.props
+
+    Cookies.set('jwt_token', jwtToken, {expires: 90})
+    history.replace('/')
+  }
+
+  onFailureLogin = errorMsg => {
+    this.setState({isShowError: true, error: errorMsg})
+  }
+
+  onClickSubmit = async event => {
     event.preventDefault()
+    const loginUrl = 'https://apis.ccbp.in/login'
+    const {username, password} = this.state
+    const userDetails = {username, password}
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(userDetails),
+    }
+    const response = await fetch(loginUrl, options)
+    const data = await response.json()
+    console.log(data)
+    if (response.ok === true) {
+      this.onSuccessLogin(data.jwt_token)
+    }
+    this.onFailureLogin(data.error_msg)
+  }
+
+  onChangeName = event => {
+    this.setState({username: event.target.value})
+  }
+
+  onChangePassword = event => {
+    this.setState({password: event.target.value})
   }
 
   render() {
-    const {username, password} = this.state
+    const {username, password, isShowError, error} = this.state
     return (
       <div className="login-main-container">
         <div className="login-main-card-container">
@@ -28,6 +62,7 @@ class LoginRoute extends Component {
               className="user-input"
               placeholder="Username"
               id="userName"
+              onChange={this.onChangeName}
             />
             <label htmlFor="userPass" className="label-heading">
               PASSWORD
@@ -38,10 +73,12 @@ class LoginRoute extends Component {
               className="user-input"
               placeholder="Password"
               id="userPass"
+              onChange={this.onChangePassword}
             />
             <button className="button" type="submit">
               Login
             </button>
+            {isShowError && <p className="error-para">*{error}</p>}
           </form>
         </div>
       </div>

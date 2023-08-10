@@ -46,6 +46,11 @@
   outline: 0px;
   margin-bottom: 15px;
   border-radius: 2px;
+  color: #ffffff;
+}
+.error-para {
+  color: red;
+  font-size: 10px;
 }
 .button {
   background-color: #4f46e5;
@@ -55,4 +60,5 @@
   border: none;
   border-radius: 5px;
   font-size: 10px;
+  cursor: pointer;
 }

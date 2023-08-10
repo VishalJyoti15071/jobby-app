@@ -1,0 +1,14 @@
+.main-job-container {
+  background-color: #000000;
+}
+.left-top-container {
+  background-image: url('https://assets.ccbp.in/frontend/react-js/profile-bg.png');
+  background-size: cover;
+}
+.left-bottom-container {
+  color: #ffffff;
+}
+.input-search-container {
+  background-color: #272727;
+  height: 30px;
+}
