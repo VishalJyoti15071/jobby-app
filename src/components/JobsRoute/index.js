@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
-import {BiSearch} from 'react-icons/bi'
+import {BsSearch} from 'react-icons/bs'
 import './index.css'
 import Header from '../Header'
 import AllJobCard from '../AllJobCard'
@@ -44,14 +44,20 @@ const salaryRangesList = [
 ]
 
 class JobsRoute extends Component {
-  state = {searchInput: '', jobList: [], profielDetail: {}}
+  state = {
+    searchInput: '',
+    jobList: [],
+    profielDetail: {},
+    isCheckedValue: '',
+    isChecked: false,
+  }
 
   componentDidMount() {
     this.getJobList()
   }
 
   getJobList = async () => {
-    const {searchInput} = this.state
+    const {searchInput, isCheckedValue} = this.state
     const token = Cookies.get('jwt_token')
     const profileUrl = 'https://apis.ccbp.in/profile'
     const jobUrl = `https://apis.ccbp.in/jobs?employment_type=FULLTIME,PARTTIME&minimum_package=1000000&search=${searchInput}`
@@ -83,12 +89,23 @@ class JobsRoute extends Component {
     this.setState({searchInput: event.target.value})
   }
 
+  onClickCheckBox = event => {
+    this.setState({isCheckedValue: event.target.value})
+    this.getJobList()
+  }
+
   onClickSearchButton = () => {
     this.getJobList()
   }
 
   render() {
-    const {searchInput, jobList, profielDetail} = this.state
+    const {
+      searchInput,
+      jobList,
+      profielDetail,
+      isCheckedValue,
+      isChecked,
+    } = this.state
     return (
       <div className="main-job-container">
         <Header />
@@ -103,7 +120,7 @@ class JobsRoute extends Component {
               <h1 className="profile-name">{profielDetail.name}</h1>
               <p className="profile-para">{profielDetail.short_bio}</p>
             </ul>
-            <hr />
+            <hr className="horizontal-line" />
             <div className="left-bottom-container">
               <h1 className="heading">Type of Employment</h1>
               <ul className="checkbox-container">
@@ -111,15 +128,22 @@ class JobsRoute extends Component {
                   <li
                     className="list-container"
                     key={eachEmploy.employmentTypeId}
+                    onClick={this.onClickCheckBox}
+                    value={isCheckedValue}
                   >
-                    <input type="checkbox" className="checkbox-class" />
+                    <input
+                      type="checkbox"
+                      className="checkbox-class"
+                      checked={isChecked}
+                    />
                     <label className="label-class">{eachEmploy.label}</label>
                   </li>
                 ))}
               </ul>
             </div>
-            <hr />
+            <hr className="horizontal-line" />
             <div className="left-bottom-container">
+              <h1 className="heading">Salary Range</h1>
               <ul className="checkbox-container">
                 {salaryRangesList.map(eachRange => (
                   <li className="list-container" key={eachRange.salaryRangeId}>
@@ -143,10 +167,14 @@ class JobsRoute extends Component {
                 value={searchInput}
                 placeholder="Search"
               />
-              <BiSearch
-                className="search-icon"
+              <button
+                type="button"
+                data-testid="searchButton"
                 onClick={this.onClickSearchButton}
-              />
+                className="search-icon"
+              >
+                <BsSearch />
+              </button>
             </div>
             {jobList.map(eachList => (
               <AllJobCard key={eachList.id} cardDetails={eachList} />
