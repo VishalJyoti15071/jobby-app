@@ -1,0 +1,86 @@
+.main-job-container {
+  background-color: #000000;
+  height: 100vh;
+}
+.jobs-container {
+  display: flex;
+  height: 90vh;
+  width: 100%;
+  padding: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.all-job-card-container {
+  color: #ffffff;
+  padding: 20px;
+  background-color: #272727;
+  border-radius: 10px;
+  margin: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.image-container {
+  display: flex;
+}
+.company-logo {
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
+}
+.name-and-star-container {
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.company-name {
+  font-size: 18px;
+  padding-top: 0px;
+  margin-top: -5px;
+}
+.rating-cont {
+  display: flex;
+
+  align-items: center;
+}
+.star {
+  color: #fbbf24;
+}
+.rating {
+  font-size: 15px;
+  padding-left: 5px;
+}
+.location-and-price-cont {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+.span-class {
+  padding: 10px;
+  font-size: 12px;
+}
+.horizontal-line {
+  border-color: #b6c5ff;
+}
+.description-head {
+  font-size: 24px;
+  margin-top: 10px;
+}
+.description-para {
+  font-size: 16px;
+  padding-top: 10px;
+}
+.company-link {
+  text-decoration: none;
+}
+.description-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.skill-container {
+  display: flex;
+  align-items: center;
+}
