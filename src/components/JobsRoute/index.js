@@ -90,8 +90,9 @@ class JobsRoute extends Component {
   getJobList = async () => {
     this.setState({apiStatus: apiStatusConstant.loading})
     const {searchInput, radioInput, checkboxArray} = this.state
+    const joinCheckBoxArray = checkboxArray.join()
     const token = Cookies.get('jwt_token')
-    const jobUrl = `https://apis.ccbp.in/jobs?employment_type=${checkboxArray}&minimum_package=${radioInput}&search=${searchInput}`
+    const jobUrl = `https://apis.ccbp.in/jobs?employment_type=${joinCheckBoxArray}&minimum_package=${radioInput}&search=${searchInput}`
     const options = {
       method: 'GET',
       headers: {Authorization: `Bearer ${token}`},
@@ -163,13 +164,30 @@ class JobsRoute extends Component {
     </div>
   )
 
+  noSearchFound = () => (
+    <div className="not-found-search-container">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/no-jobs-img.png"
+        alt="no jobs"
+        className="no-job-image"
+      />
+      <h1 className="no-job-head">No Jobs Found</h1>
+      <p className="no-job-para">
+        We could not find any jobs. Try other filters.
+      </p>
+    </div>
+  )
+
   successApiContent = () => {
     const {jobList} = this.state
+    const noJob = jobList.length === 0
     return (
       <ul className="all-product-container">
-        {jobList.map(eachList => (
-          <AllJobCard key={eachList.id} cardDetails={eachList} />
-        ))}
+        {noJob
+          ? this.noSearchFound()
+          : jobList.map(eachList => (
+              <AllJobCard key={eachList.id} cardDetails={eachList} />
+            ))}
       </ul>
     )
   }

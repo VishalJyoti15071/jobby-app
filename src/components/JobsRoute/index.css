@@ -113,6 +113,7 @@
 }
 .all-product-container {
   height: 95%;
+  width: 100%;
   list-style: none;
   overflow-y: auto;
   margin-top: 10px;
@@ -146,4 +147,21 @@
 .failure-paragraph {
   font-size: 12px;
   padding: 10px;
+}
+.not-found-search-container {
+  height: 100%;
+  width: 60vw;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.no-job-image {
+  height: 30vh;
+}
+.no-job-head {
+  font-size: 25px;
+  padding-top: 20px;
+  padding-bottom: 10px;
 }

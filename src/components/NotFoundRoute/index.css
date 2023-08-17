@@ -1,0 +1,23 @@
+.not-found-page-container {
+  height: 100vh;
+  width: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.no-found-image {
+  height: 42vh;
+}
+.no-job-head {
+  font-size: 25px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  font-family: 'Roboto';
+}
+.no-job-para {
+  font-family: 'Roboto';
+  color: #cbd5e1;
+}

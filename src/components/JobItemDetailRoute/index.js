@@ -1,12 +1,13 @@
-import {Link} from 'react-router-dom'
 import {Component} from 'react'
 import {IoIosStar} from 'react-icons/io'
 import {HiLocationMarker} from 'react-icons/hi'
 import {BsFillBriefcaseFill} from 'react-icons/bs'
 import {FiExternalLink} from 'react-icons/fi'
+import Loader from 'react-loader-spinner'
 import './index.css'
 import Cookies from 'js-cookie'
 import Header from '../Header'
+import SimilarJobCard from '../SimilarJobCard'
 
 const apiStatusConstant = {
   loading: 'LOADING',
@@ -15,18 +16,22 @@ const apiStatusConstant = {
 }
 
 class JobItemDetailRoute extends Component {
-  state = {jobItemDetail: {}, similarJobItemList: [], apiStatus: ''}
+  state = {
+    jobItemDetail: {},
+    skillList: [],
+    similarJobItemList: [],
+    apiStatus: '',
+  }
 
   componentDidMount() {
     this.getItemDetails()
   }
 
   getItemDetails = async () => {
-    // this.setState({apiStatus: apiStatusConstant.loading})
+    this.setState({apiStatus: apiStatusConstant.loading})
     const {match} = this.props
     const {params} = match
     const {id} = params
-    console.log(id)
     const jwtToken = Cookies.get('jwt_token')
     const itemUrl = `https://apis.ccbp.in/jobs/${id}`
     const options = {
@@ -37,8 +42,8 @@ class JobItemDetailRoute extends Component {
     }
     const response = await fetch(itemUrl, options)
     const data = await response.json()
+    const detail = data.job_details
     if (response.ok === true) {
-      const detail = data.job_details
       const updatedJobItemDetail = {
         companyUrl: detail.company_logo_url,
         companyWebsiteUrl: detail.company_website_url,
@@ -47,14 +52,16 @@ class JobItemDetailRoute extends Component {
         employmentType: detail.employment_type,
         id: detail.id,
         jobDescription: detail.job_description,
-        lifeAtCompany: detail.life_at_company.description,
         location: detail.location,
         packagePerAnnum: detail.package_per_annum,
-        skills: detail.skills.map(each => ({
-          name: each.name,
-          imageUrl: each.image_url,
-        })),
+        lifeAtCompanyDescription: detail.life_at_company.description,
+        lifeAtCompanyImage: detail.life_at_company.image_url,
       }
+      const updatedSkillList = detail.skills.map(each => ({
+        name: each.name,
+        imageUrl: each.image_url,
+      }))
+
       const updatedSimilarJobList = data.similar_jobs.map(each => ({
         id: each.id,
         title: each.title,
@@ -67,6 +74,8 @@ class JobItemDetailRoute extends Component {
       }))
       this.setState({
         jobItemDetail: updatedJobItemDetail,
+        skillList: updatedSkillList,
+        similarJobItemList: updatedSimilarJobList,
         apiStatus: apiStatusConstant.success,
       })
     } else {
@@ -74,25 +83,17 @@ class JobItemDetailRoute extends Component {
     }
   }
 
-  onRenderProfileAPi = () => {
-    const {apiStatusProfile} = this.state
-    switch (apiStatusProfile) {
-      case apiStatusConstant.loading:
-        return this.loadingProfileApiContent()
-      case apiStatusConstant.succuss:
-        return this.successProfileApiContent()
-      case apiStatusConstant.failure:
-        return this.failureProfileApiContent()
-      default:
-        return null
-    }
-  }
+  loadingApiContent = () => (
+    <div className="jobs-loader-container failure" data-testid="loader">
+      <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
+    </div>
+  )
 
-  render() {
-    const {jobItemDetail} = this.state
+  successApiContent = () => {
+    const {jobItemDetail, skillList, similarJobItemList} = this.state
+
     return (
-      <div className="main-job-container">
-        <Header />
+      <>
         <div className="all-job-card-container">
           <div className="image-container">
             <img
@@ -132,31 +133,82 @@ class JobItemDetailRoute extends Component {
           </div>
           <p className="description-para">{jobItemDetail.jobDescription}</p>
           <h1 className="description-head">Skills</h1>
-
+          <ul className="skills-list">
+            {skillList.map(eachSkill => {
+              const {imageUrl, name} = eachSkill
+              return (
+                <li className="skill-item" key={name}>
+                  <img src={imageUrl} alt={name} className="skill-image" />
+                  <p className="skill-name">{name}</p>
+                </li>
+              )
+            })}
+          </ul>
           <h1 className="description-head">Life at Company</h1>
-          <p className="description-para">{jobItemDetail.lifeAtCompany}</p>
+          <div className="life-container">
+            <p className="description-life">
+              {jobItemDetail.lifeAtCompanyDescription}
+            </p>
+            <img
+              src={jobItemDetail.lifeAtCompanyImage}
+              alt="life at company"
+              className="life-image"
+            />
+          </div>
         </div>
+        <h1 className="similar-heading">Similar Jobs</h1>
+        <ul className="similar-job-container">
+          {similarJobItemList.map(eachSim => (
+            <SimilarJobCard detailJodCard={eachSim} key={eachSim.id} />
+          ))}
+        </ul>
+      </>
+    )
+  }
+
+  failureApiContent = () => (
+    <div className="jobs-failure-container failure">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+        alt="failure view"
+        className="failure-job-image"
+      />
+      <h1 className="failure-heading">Oops! Something Went Wrong</h1>
+      <p className="failure-paragraph">
+        We can not seem to find the page you are looking for.
+      </p>
+      <button
+        className="retry-button"
+        type="button"
+        onClick={() => this.getItemDetails()}
+      >
+        Retry
+      </button>
+    </div>
+  )
+
+  onRenderProfileAPi = () => {
+    const {apiStatus} = this.state
+    switch (apiStatus) {
+      case apiStatusConstant.loading:
+        return this.loadingApiContent()
+      case apiStatusConstant.success:
+        return this.successApiContent()
+      case apiStatusConstant.failure:
+        return this.failureApiContent()
+      default:
+        return null
+    }
+  }
+
+  render() {
+    return (
+      <div className="main-job-container">
+        <Header />
+        {this.onRenderProfileAPi()}
       </div>
     )
   }
 }
 
 export default JobItemDetailRoute
-
-/* 
-const JobItemDetailRoute = props => {
-  const {cardDetails} = props
-  const {
-    id,
-    title,
-    rating,
-    companyUrl,
-    employmentType,
-    jobDescription,
-    location,
-    packagePerAnnum,
-  } = cardDetails
-
-
-
-  */
