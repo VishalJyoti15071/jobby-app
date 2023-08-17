@@ -9,7 +9,7 @@ const NotFoundRoute = () => (
     />
     <h1 className="no-job-head">Page Not Found</h1>
     <p className="no-job-para">
-      We are sorry,The page you requested could not be found
+      We are sorry, the page you requested could not be found
     </p>
   </div>
 )

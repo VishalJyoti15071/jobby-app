@@ -49,6 +49,11 @@
   justify-content: space-between;
   align-items: center;
 }
+.location-cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .span-class {
   padding: 10px;
   font-size: 12px;

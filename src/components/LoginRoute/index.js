@@ -1,14 +1,14 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
+import {Redirect} from 'react-router-dom'
 import './index.css'
 
 class LoginRoute extends Component {
   state = {username: '', password: '', isShowError: false, error: ''}
 
   onSuccessLogin = jwtToken => {
-    const {history} = this.props
-
     Cookies.set('jwt_token', jwtToken, {expires: 90})
+    const {history} = this.props
     history.replace('/')
   }
 
@@ -27,7 +27,6 @@ class LoginRoute extends Component {
     }
     const response = await fetch(loginUrl, options)
     const data = await response.json()
-    console.log(data)
     if (response.ok === true) {
       this.onSuccessLogin(data.jwt_token)
     }
@@ -43,6 +42,10 @@ class LoginRoute extends Component {
   }
 
   render() {
+    const jwtToken = Cookies.get('jwt_token')
+    if (jwtToken !== undefined) {
+      return <Redirect to="/" />
+    }
     const {username, password, isShowError, error} = this.state
     return (
       <div className="login-main-container">

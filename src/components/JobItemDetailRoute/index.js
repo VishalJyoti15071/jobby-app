@@ -98,7 +98,7 @@ class JobItemDetailRoute extends Component {
           <div className="image-container">
             <img
               src={jobItemDetail.companyUrl}
-              alt={jobItemDetail.title}
+              alt="job details company logo"
               className="company-logo"
             />
             <div className="name-and-star-container">
@@ -112,9 +112,9 @@ class JobItemDetailRoute extends Component {
           <div className="location-and-price-cont">
             <div className="location-cont">
               <HiLocationMarker />
-              <span className="span-class">{jobItemDetail.location}</span>
+              <p className="span-class">{jobItemDetail.location}</p>
               <BsFillBriefcaseFill />
-              <span className="span-class">{jobItemDetail.employmentType}</span>
+              <p className="span-class">{jobItemDetail.employmentType}</p>
             </div>
             <p className="package-para">{jobItemDetail.packagePerAnnum}</p>
           </div>
@@ -175,7 +175,7 @@ class JobItemDetailRoute extends Component {
       />
       <h1 className="failure-heading">Oops! Something Went Wrong</h1>
       <p className="failure-paragraph">
-        We can not seem to find the page you are looking for.
+        We cannot seem to find the page you are looking for
       </p>
       <button
         className="retry-button"

@@ -16,7 +16,11 @@ const similarJobsItem = props => {
   return (
     <li className="similar-job-card-container">
       <div className="image-container">
-        <img src={companyUrl} alt={title} className="company-logo" />
+        <img
+          src={companyUrl}
+          alt="similar job company logo"
+          className="company-logo"
+        />
         <div className="name-and-star-container">
           <h1 className="company-name">{title}</h1>
           <div className="rating-cont">
@@ -30,9 +34,9 @@ const similarJobsItem = props => {
       <div className="location-and-price-cont">
         <div className="location-cont">
           <HiLocationMarker />
-          <span className="span-class">{location}</span>
+          <p className="span-class">{location}</p>
           <BsFillBriefcaseFill />
-          <span className="span-class">{employmentType}</span>
+          <p className="span-class">{employmentType}</p>
         </div>
       </div>
     </li>

@@ -90,9 +90,9 @@ class JobsRoute extends Component {
   getJobList = async () => {
     this.setState({apiStatus: apiStatusConstant.loading})
     const {searchInput, radioInput, checkboxArray} = this.state
-    const joinCheckBoxArray = checkboxArray.join()
+    const joinCheckBox = checkboxArray.join(',')
     const token = Cookies.get('jwt_token')
-    const jobUrl = `https://apis.ccbp.in/jobs?employment_type=${joinCheckBoxArray}&minimum_package=${radioInput}&search=${searchInput}`
+    const jobUrl = `https://apis.ccbp.in/jobs?employment_type=${joinCheckBox}&minimum_package=${radioInput}&search=${searchInput}`
     const options = {
       method: 'GET',
       headers: {Authorization: `Bearer ${token}`},
@@ -124,28 +124,20 @@ class JobsRoute extends Component {
   }
 
   checkboxEvent = event => {
-    console.log(event.target.id)
+    const currentId = event.target.id
     const {checkboxArray} = this.state
-    const initialList = checkboxArray.filter(
-      eachVal => eachVal === event.target.id,
-    )
-    if (initialList.length === 0) {
-      this.setState(
-        prevState => ({
-          checkboxArray: [...prevState.checkboxArray, event.target.id],
-        }),
-        this.getJobList,
-      )
+    let initializedList = checkboxArray
+    if (checkboxArray.includes(currentId)) {
+      initializedList = checkboxArray.filter(eachId => eachId !== currentId)
     } else {
-      const filterData = checkboxArray.filter(
-        eachItem => eachItem !== event.target.id,
-      )
-      this.setState({checkboxArray: filterData}, this.getJobList)
+      initializedList = [...initializedList, currentId]
     }
+
+    this.setState({checkboxArray: initializedList}, this.getJobList)
   }
 
   onChangeRadioButton = event => {
-    this.setState({radioInput: event.target.id}, this.getJobList)
+    this.setState({radioInput: event.target.value}, this.getJobList)
   }
 
   onClickSearchButton = () => {
@@ -213,7 +205,7 @@ class JobsRoute extends Component {
       />
       <h1 className="failure-heading">Oops! Something Went Wrong</h1>
       <p className="failure-paragraph">
-        We can not seem to find the page you are looking for.
+        We cannot seem to find the page you are looking for
       </p>
       <button
         className="retry-button"
@@ -231,7 +223,7 @@ class JobsRoute extends Component {
       <ul className="left-top-container">
         <img
           src={profileDetail.profile_image_url}
-          alt="logo"
+          alt="profile"
           className="profile-img"
         />
         <h1 className="profile-name">{profileDetail.name}</h1>
@@ -281,10 +273,7 @@ class JobsRoute extends Component {
               <h1 className="heading">Type of Employment</h1>
               <ul className="checkbox-container">
                 {employmentTypesList.map(eachEmploy => (
-                  <li
-                    className="list-container"
-                    key={eachEmploy.employmentTypeId}
-                  >
+                  <li className="list-container" key={eachEmploy.label}>
                     <input
                       id={eachEmploy.employmentTypeId}
                       type="checkbox"
@@ -292,7 +281,12 @@ class JobsRoute extends Component {
                       onChange={this.checkboxEvent}
                       value={eachEmploy.employmentTypeId}
                     />
-                    <label className="label-class">{eachEmploy.label}</label>
+                    <label
+                      htmlFor={eachEmploy.employmentTypeId}
+                      className="label-class"
+                    >
+                      {eachEmploy.label}
+                    </label>
                   </li>
                 ))}
               </ul>
@@ -302,15 +296,21 @@ class JobsRoute extends Component {
               <h1 className="heading">Salary Range</h1>
               <ul className="checkbox-container">
                 {salaryRangesList.map(eachRange => (
-                  <li className="list-container" key={eachRange.salaryRangeId}>
+                  <li className="list-container" key={eachRange.label}>
                     <input
                       type="radio"
                       name="radio"
                       className="checkbox-class"
+                      value={eachRange.salaryRangeId}
                       id={eachRange.salaryRangeId}
                       onChange={this.onChangeRadioButton}
                     />
-                    <label className="label-class">{eachRange.label}</label>
+                    <label
+                      htmlFor={eachRange.salaryRangeId}
+                      className="label-class"
+                    >
+                      {eachRange.label}
+                    </label>
                   </li>
                 ))}
               </ul>
