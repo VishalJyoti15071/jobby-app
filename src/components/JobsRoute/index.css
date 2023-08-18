@@ -1,0 +1,167 @@
+.main-job-container {
+  background-color: #000000;
+  height: 100vh;
+}
+.jobs-container {
+  display: flex;
+  height: 90vh;
+  width: 100%;
+  padding: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.left-top-container {
+  width: 20vw;
+  background-image: url('https://assets.ccbp.in/frontend/react-js/profile-bg.png');
+  background-size: cover;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+.profile-loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+  height: 20vh;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+.retry-button {
+  padding: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: #ffffff;
+  background-color: #4f46e5;
+  border-width: 0px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.profile-img {
+  width: 35px;
+}
+.profile-name {
+  font-size: 15px;
+  color: #6366f1;
+}
+.profile-para {
+  font-size: 12px;
+  color: #2c364c;
+  padding-top: 10px;
+}
+.left-bottom-container {
+  color: #ffffff;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.heading {
+  font-size: 15px;
+  padding-bottom: 10px;
+}
+.checkbox-container {
+  list-style: none;
+}
+.list-container {
+  padding-bottom: 5px;
+}
+.label-class {
+  font-size: 12px;
+  padding-left: 6px;
+}
+.checkbox-class {
+  height: 12px;
+  cursor: pointer;
+}
+
+.right-container {
+  padding-left: 25px;
+}
+.input-search-container {
+  height: 28px;
+  width: 30vw;
+  display: flex;
+  border: 1px solid #b6c5ff;
+  border-radius: 2px;
+}
+.input-class {
+  height: 28px;
+  width: 100%;
+  background-color: transparent;
+  padding-left: 10px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  outline: none;
+  color: #ffffff;
+  border: none;
+}
+.search-icon {
+  height: 100%;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #272727;
+  padding: 5px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+.horizontal-line {
+  border-color: #b6c5ff;
+}
+.all-product-container {
+  height: 95%;
+  width: 100%;
+  list-style: none;
+  overflow-y: auto;
+  margin-top: 10px;
+  padding-right: 20px;
+}
+.jobs-loader-container {
+  width: 60vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.jobs-failure-container {
+  width: 60vw;
+  height: 100%;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+}
+.failure-job-image {
+  height: 40vh;
+  width: 25vw;
+  margin-top: 40px;
+}
+.failure-heading {
+  font-size: 25px;
+  margin-top: 10px;
+}
+.failure-paragraph {
+  font-size: 12px;
+  padding: 10px;
+}
+.not-found-search-container {
+  height: 100%;
+  width: 60vw;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.no-job-image {
+  height: 30vh;
+}
+.no-job-head {
+  font-size: 25px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
