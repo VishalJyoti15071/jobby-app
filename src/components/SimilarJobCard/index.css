@@ -1,4 +1,4 @@
-.similar-job-card-container {
+.similar-job-card-container-sma {
   color: #ffffff;
   padding: 30px;
   background-color: #272727;
@@ -6,6 +6,17 @@
   margin-right: 30px;
   margin-top: 30px;
   width: 35%;
+}
+@media screen and (max-width: 576px) {
+  .similar-job-card-container-sma {
+    color: #ffffff;
+    padding: 20px;
+    background-color: #272727;
+    border-radius: 10px;
+    margin-top: 30px;
+    width: 90%;
+    margin-left: 0px;
+  }
 }
 .image-container {
   display: flex;

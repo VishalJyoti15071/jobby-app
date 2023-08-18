@@ -267,6 +267,23 @@ class JobsRoute extends Component {
         <Header />
         <div className="jobs-container">
           <div className="left-container">
+            <div className="input-search-container-small">
+              <input
+                type="search"
+                onChange={this.onChangeInput}
+                className="input-class"
+                value={searchInput}
+                placeholder="Search"
+              />
+              <button
+                type="button"
+                data-testid="searchButton"
+                onClick={this.onClickSearchButton}
+                className="search-icon"
+              >
+                <BsSearch />
+              </button>
+            </div>
             {this.onRenderProfileAPi()}
             <hr className="horizontal-line" />
             <div className="left-bottom-container">

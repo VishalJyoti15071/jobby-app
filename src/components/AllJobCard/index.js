@@ -19,7 +19,7 @@ const AllJobCard = props => {
 
   return (
     <Link to={`/jobs/${id}`} className="details-link">
-      <li className="all-job-card-container">
+      <li className="all-job-card-container-sm">
         <div className="image-container">
           <img src={companyUrl} alt="company logo" className="company-logo" />
           <div className="name-and-star-container">

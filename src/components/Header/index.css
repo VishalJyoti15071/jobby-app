@@ -38,3 +38,38 @@
   text-decoration: none;
   color: #ffffff;
 }
+.link-item-small {
+  display: none;
+}
+.logout-button-small {
+  display: none;
+}
+@media screen and (max-width: 576px) {
+  .link-item-small {
+    display: block;
+    color: #ffffff;
+    font-size: 20px;
+  }
+  .link-item {
+    display: none;
+  }
+  .logout-button-small {
+    display: block;
+    color: #ffffff;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: 20px;
+  }
+  .logout-button {
+    display: none;
+  }
+  .header-container {
+    height: 10vh;
+    padding-left: 30px;
+    padding-right: 10px;
+  }
+  .para-large {
+    display: none;
+  }
+}

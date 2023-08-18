@@ -14,7 +14,7 @@ const similarJobsItem = props => {
     location,
   } = detailJodCard
   return (
-    <li className="similar-job-card-container">
+    <li className="similar-job-card-container-sma">
       <div className="image-container">
         <img
           src={companyUrl}

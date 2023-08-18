@@ -11,14 +11,14 @@
   background-color: #000000;
 }
 .login-main-card-container {
-  width: 57%;
+  width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #121212;
 }
 .login-container {
-  width: 44%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   background-color: #272727;
@@ -26,20 +26,31 @@
   font-weight: 400;
   border-radius: 6px;
 }
+@media screen and (max-width: 576px) {
+  .login-main-card-container {
+    width: 100%;
+    background-color: transparent;
+  }
+  .login-container {
+    width: 100%;
+    margin: 50px;
+  }
+}
+
 .jobby-logo {
-  height: 35px;
+  height: 40px;
   width: 120px;
   margin-bottom: 40px;
   align-self: center;
 }
 .label-heading {
   color: #ffffff;
-  font-size: 9px;
+  font-size: 12px;
   padding-bottom: 6px;
 }
 .user-input {
-  height: 28px;
-  font-size: 9px;
+  height: 30px;
+  font-size: 12px;
   background-color: transparent;
   padding-left: 10px;
   border: 1px solid #64748b;
@@ -50,15 +61,15 @@
 }
 .error-para {
   color: red;
-  font-size: 10px;
+  font-size: 12px;
 }
 .button {
   background-color: #4f46e5;
   margin-top: 10px;
   color: #ffffff;
-  padding: 8px;
+  padding: 10px;
   border: none;
   border-radius: 5px;
-  font-size: 10px;
+  font-size: 12px;
   cursor: pointer;
 }
